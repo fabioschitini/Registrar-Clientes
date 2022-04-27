@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 
 var app = express();
 
-const dev_db_url= "mongodb+srv://schitini:Fabiolindo1@node-projects.zykqj.mongodb.net/Desafio?retryWrites=true&w=majority"
+const dev_db_url= process.env.mongoDb
 var mongoDB =  dev_db_url;
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.Promise = global.Promise;
