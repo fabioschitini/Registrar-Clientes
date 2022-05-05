@@ -21,7 +21,7 @@ const Editar = (props) => {
   
      function onSubmit(e){
       e.preventDefault()
-     Axios.post(`http://localhost:3001/users/editar`,{email,cpf,nome,endereco,observacao,celular,nascimento,id})
+     Axios.post(`https://tranquil-shelf-46464.herokuapp.com/users/editar`,{email,cpf,nome,endereco,observacao,celular,nascimento,id})
      navigate("/search")
       console.log(`dado foi submited`)
     }

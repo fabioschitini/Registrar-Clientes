@@ -17,7 +17,7 @@ function App() {
 
 
   useEffect(()=>{
-fetch("http://localhost:3001/users").then(response=>response.json()).then(data=>setBackendData(data))
+fetch("https://tranquil-shelf-46464.herokuapp.com/users").then(response=>response.json()).then(data=>setBackendData(data))
 
   },[])
 

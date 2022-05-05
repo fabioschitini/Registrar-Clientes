@@ -11,7 +11,7 @@ const Search = (props) => {
     const [loading,setLoading]=useState(false)
     function deletar(e){
      props.setBackendData(props.backendData.filter(data=>data._id!==e.target.id))
-        Axios.post('http://localhost:3001/users/delete',{id:e.target.id}).then(()=>console.log(`yepp`))
+        Axios.post('https://tranquil-shelf-46464.herokuapp.com/users/delete',{id:e.target.id}).then(()=>console.log(`yepp`))
     }
     useEffect(()=>{
      // if(props.backendData[0].nome){

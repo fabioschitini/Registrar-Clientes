@@ -23,7 +23,7 @@ const Home = (props) => {
     setErrorRepetido('Esse CPF ja esta em uso, por favor insira outro')
   }
   else{
-    Axios.post('http://localhost:3001/users',{email,cpf,nome,endereco,observacao,celular,nascimento}).then(()=>console.log(`yepp`))
+    Axios.post('https://tranquil-shelf-46464.herokuapp.com/users',{email,cpf,nome,endereco,observacao,celular,nascimento}).then(()=>console.log(`yepp`))
     e.preventDefault()
     console.log(`dado foi submited`)
     setCpfValidation('')
