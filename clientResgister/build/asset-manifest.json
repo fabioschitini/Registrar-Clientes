@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Registrar-Clientes/static/css/main.8aa03674.css",
+    "main.js": "/Registrar-Clientes/static/js/main.0e80f50a.js",
+    "index.html": "/Registrar-Clientes/index.html",
+    "main.8aa03674.css.map": "/Registrar-Clientes/static/css/main.8aa03674.css.map",
+    "main.0e80f50a.js.map": "/Registrar-Clientes/static/js/main.0e80f50a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8aa03674.css",
+    "static/js/main.0e80f50a.js"
+  ]
+}
