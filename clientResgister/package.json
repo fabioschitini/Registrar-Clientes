@@ -17,7 +17,7 @@
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "http://fabioschitini.github.io/Registrar-Clientes",
+  "homepage": "http://fabioschitini.github.io/home",
   "scripts": {
     "start": "react-scripts start",
     "predeploy": "npm run build",
