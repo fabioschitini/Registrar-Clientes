@@ -1,50 +1,47 @@
 import { useState } from 'react'
 import Axios from 'axios'
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button,Col,Form,Row,InputGroup,Container} from 'react-bootstrap';
+import { Formik } from 'formik';
+ import * as yup from 'yup';
 
 const Home = (props) => {
- 
-  
-    const [nome,setNome]=useState('')
-    const [cpf,setCpf]=useState('')
-    const [endereco,setEndereco]=useState('')
-    const [celular,setCelular]=useState('')
-    const [nascimento,setNascimento]=useState('')
-    const [email,setEmail]=useState('')
-    const [observacao,setObservacao]=useState('')
-    const [cpfValidation,setCpfValidation]=useState('')
-    const [errorRepetido,setErrorRepetido]=useState('')
 
-  function onSubmit(e){
-    e.preventDefault()
-  if(_cpf(cpf)){
-  if(props.backendData.filter(data=>data.cpf===cpf)[0]!==undefined){
+  //function onSubmits(e){
+
+  //  e.preventDefault()
+  //  console.log('yooooooooo')
+  //if(props.backendData.filter(data=>data.cpf===cpf)[0]!==undefined){
     
-    setErrorRepetido('Esse CPF ja esta em uso, por favor insira outro')
-  }
-  else{
-    Axios.post('https://tranquil-shelf-46464.herokuapp.com/users',{email,cpf,nome,endereco,observacao,celular,nascimento}).then(()=>console.log(`yepp`))
-    e.preventDefault()
-    console.log(`dado foi submited`)
-    setCpfValidation('')
-    setErrorRepetido('')
-    setNome('')
-    setEmail('')
-    setCelular('')
-    setCpf('')
-    setObservacao('')
-    setNascimento('')
-    setEndereco('')
-  }
-  }
- else if(!_cpf(cpf)){
-    setCpfValidation('Esse CPF  é invalido, por favor use outro')
- }
-    
-  }
+   // setErrorRepetido(false)
+    //console.log('fodassseeee 1111111')
+
+ // }
+ // else{
+//console.log('yoosssssdasfasfafas')
+ //   Axios.post('https://tranquil-shelf-46464.herokuapp.com/users',{email,cpf,nome,endereco,observacao,celular,nascimento}).then(()=>console.log(`yepp`))
+  //  console.log(`dado foi submited`)
+  //}
+  //}
   
+  const schema = yup.object().shape({
+    nome: yup.string().required("Esse campo é obrigatorio"),
+    endereco: yup.string().required("Esse campo é obrigatorio"),
+    celular: yup.string().min(15,'Numero insuficiente').required("Esse campo é obrigatorio"),
+    cpf: yup.string().min(11,'Numero insuficiente').required("Esse campo é obrigatorio"),
+    email:yup.string().email('Email é inválido!')
+    .required('Esse campo é obrigatorio'),
+    observacao: yup.string().required("Esse campo é obrigatorio"),
+    nascimento: yup.string().required("Esse campo é obrigatorio"),
+
+  });
+
   function mphone(v) {
-    var r = v.target.value.replace(/\D/g, "");
+    if(!v){
+      return
+    }
+    
+    var r = v.toString().replace(/\D/g, "");
     r = r.replace(/^0/, "");
     if (r.length > 10) {
       r = r.replace(/^(\d\d)(\d{5})(\d{4}).*/, "($1) $2-$3");
@@ -55,96 +52,166 @@ const Home = (props) => {
     } else {
       r = r.replace(/^(\d*)/, "($1");
     }
-    setCelular(r)
+  return r
   }
-
- 
-
   function _cpf(cpf) {
-    let i
-    let add;
-    let rev;
-    cpf = cpf.replace(/[^\d]+/g, '');
-    if (cpf === '') return false;
-    if (cpf.length !== 11 ||
-    cpf === "00000000000" ||
-    cpf === "11111111111" ||
-    cpf === "22222222222" ||
-    cpf === "33333333333" ||
-    cpf === "44444444444" ||
-    cpf === "55555555555" ||
-    cpf === "66666666666" ||
-    cpf === "77777777777" ||
-    cpf === "88888888888" ||
-    cpf === "99999999999")
-    return false;
-    add = 0;
-    for ( i = 0; i < 9; i++)
-    add += parseInt(cpf.charAt(i)) * (10 - i);
-    rev = 11 - (add % 11);
-    if (rev === 10 || rev === 11)
-    rev = 0;
-    if (rev !== parseInt(cpf.charAt(9)))
-    return false;
-    add = 0;
-    for (i = 0; i < 10; i++)
-    add += parseInt(cpf.charAt(i)) * (11 - i);
-    rev = 11 - (add % 11);
-    if (rev === 10 || rev === 11)
-    rev = 0;
-    if (rev !== parseInt(cpf.charAt(10)))
-    return false;
-    return true;
+    return cpf
+    .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
+    .replace(/(\d{3})(\d)/, '$1.$2') // captura 2 grupos de numero o primeiro de 3 e o segundo de 1, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de numero
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+    .replace(/(-\d{2})\d+?$/, '$1') // captura 2 numeros seguidos de um traço e não deixa ser digitado mais nada
     }
     
-
     return (
         <div>
+    <Container fluid>
 
-<header className='speaker-form-header'>
+<header >
       <h1>Cadastro de Cliente</h1>
       <p><em>Local de cadastro de clientes</em></p>
     </header>
+   
 
-    <form className='speaker-form' onSubmit={onSubmit}>
-    <div className='form-row'>
-            <label htmlFor='nome'>Name</label>
-            <input name='nome' id='nome' placeholder='Tony Stark'  required value={nome} type='text' onChange={(e) => setNome(e.target.value.replace(/[^\w\s]/gi, ""))}/>
-          </div>
-          <div className='form-row'>
-            <label htmlFor='email'>Email</label>
-            <input name='email' id='email' placeholder='euSouGroot@gmail.com' required value={email} type='email' onChange={(e) => setEmail(e.target.value)}/>
-          </div>
-          <div className='form-row'>
-            <label htmlFor='nascimento'>Nascimento</label>
-            <input name='nascimento' id='nascimento' placeholder='09/09/2000' required value={nascimento}  type='date' onChange={(e) => setNascimento(e.target.value)}/>
-          </div>
-          <div className='form-row'>
-            <label htmlFor='celular'>Celular</label>
-            <input name='celular' id='celular' placeholder='(75) 9 9876 9456' required value={celular} type='text' onChange={mphone}/>
-          </div>
-          <div className='form-row'>
-            <label htmlFor='endereco'>Endereco</label>
-            <input name='endereco' id='endereco'placeholder='Endereço'  required value={endereco} type='text' onChange={(e) => setEndereco(e.target.value)}/>
-          </div>
-          <div className='form-row'>
-            <label  htmlFor='cpf'>CPF</label>
-            <input name='cpf' placeholder='123.456.789.01' id="cpf" required value={cpf}  type='text'  max='14'min='14' onChange={e=>setCpf(e.target.value)}/>
-          </div>
-    <div className='form-row'>
-    <label htmlFor='Observacao'>Observacao</label>
-    <textarea name='observacao' id='observacao' placeholder='Nome sujo no serasa'  value={observacao} max='300' type='text' onChange={(e) => setObservacao(e.target.value)}/>
-    <div className='instructions'>Coloque alguma observacao se assim desejar</div>
-  </div>
-  <div className='form-row'>
-           <p className='warning'>{errorRepetido}</p>
-           <p  className='warning'>{cpfValidation}</p>
-          </div>
-  <div className='form-row'>
-            <button>Submit</button>
-          </div>
-    </form>
+    <Formik
+      validationSchema={schema}
+      onSubmit={values=>{
+        console.log("testando aquiiii")
+        Axios.post('https://tranquil-shelf-46464.herokuapp.com/users',{email:values.email,cpf:values.cpf,nome:values.nome,endereco:values.endereco,observacao:values.observacao,celular:values.celular,nascimento:values.nascimento})
+        .then(()=>console.log(`dado foi submitted`))
 
+      }}
+      initialValues={{
+        nome: 'Mark',
+        endereco: '',
+        celular: '',
+        cpf: '',
+        email: '',
+        observacao: "",
+        nascimento:"",
+      }}
+    >
+      {({
+        handleSubmit,
+        handleChange,
+        handleBlur,
+        values,
+        touched,
+        isValid,
+        errors,
+        isValidating,
+        validate,
+      }) => (
+        <Form noValidate onSubmit={handleSubmit}>
+        <Row>
+        <Col>
+            <Form.Group as={Col} md="10" controlId="validationFormik01">
+              <Form.Label>Nome</Form.Label>
+              <Form.Control
+                type="text"
+                name="nome"
+                value={values.nome}
+                onChange={handleChange}
+                isValid={touched.nome && !errors.nome}
+                placeholder="Tony Stark"
+              />
+              <Form.Control.Feedback>Tudo certo!</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="10" controlId="validationFormik01">
+              <Form.Label>Cpf</Form.Label>
+              <Form.Control
+                type="text"
+                name="cpf"
+                value={_cpf(values.cpf)}
+                onChange={handleChange}
+                isInvalid={!!errors.cpf}
+                placeholder="000.000.000-00"
+              />
+  <Form.Control.Feedback type="invalid">{errors.cpf}</Form.Control.Feedback>         
+                 </Form.Group>
+
+                 <Form.Group as={Col} md="10" controlId="validationFormik01">
+              <Form.Label>Nascimento</Form.Label>
+              <Form.Control
+                type="date"
+                name="nascimento"
+                value={values.nascimento}
+                onChange={handleChange}
+                isValid={touched.nascimento && !errors.nascimento}
+                placeholder="09/10/2002"
+              />
+  <Form.Control.Feedback type="invalid">{errors.cpf}</Form.Control.Feedback>         
+                 </Form.Group>
+               
+                
+                
+            <Form.Group as={Col} md="10" controlId="validationFormik02">
+              <Form.Label>Endereco</Form.Label>
+              <Form.Control
+                type="text"
+                name="endereco"
+                value={values.endereco}
+                onChange={handleChange}
+                isValid={touched.endereco && !errors.endereco}
+                placeholder="Rua Amazonas 999"
+              />
+
+              <Form.Control.Feedback>Tudo certo!</Form.Control.Feedback>
+            </Form.Group>
+        
+            </Col>
+            <Col>
+            <Form.Group as={Col} md="10" controlId="validationFormik03">
+              <Form.Label>Celular</Form.Label>
+              <Form.Control
+                type="text" 
+                placeholder="(75) 99220-4987"
+                name="celular"
+                value={mphone(values.celular)}
+                onChange={handleChange}
+                isInvalid={!!errors.celular}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.celular}
+              </Form.Control.Feedback>
+            </Form.Group>
+      
+            <Form.Group as={Col} md="10" controlId="validationFormik04">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="nome@exemplo.com"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                isInvalid={!!errors.email}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.email}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="10" controlId="validationFormik05">
+              <Form.Label>Observacao</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Observacao"
+                name="observacao"
+                value={values.observacao}
+                onChange={handleChange}
+                isValid={touched.observacao && !errors.observacao}
+              />
+              <Form.Control.Feedback>Tudo certo!</Form.Control.Feedback>
+            </Form.Group>
+            </Col> 
+            </Row>
+            
+          <Button style={{marginTop:"10vh"}} type="submit">Confirmar</Button>
+        </Form>
+      )}
+    </Formik>
+  
+   
+  </Container>
 </div>
       );
    

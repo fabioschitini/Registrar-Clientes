@@ -1,7 +1,7 @@
 import {useState,useEffect} from 'react'
 import {BrowserRouter as Router,Routes ,Route} from 'react-router-dom'
 import Home from './components/Home'
-import Nav from './components/Nav'
+import Navs from './components/Nav'
 import Search from './components/Search'
 //import Cliente from './components/Cliente'
 import Editar from './components/Editar'
@@ -28,7 +28,7 @@ fetch("https://tranquil-shelf-46464.herokuapp.com/users").then(response=>respons
   return (
     <div className="App">
    <Router>
-        <Nav> </Nav>
+        <Navs> </Navs>
         <Routes>
         <Route path='/Registrar-Clientes/' element={<Home backendData={backendData}/>} />
         <Route exact path='/search' element={<Search backendData={backendData} setBackendData={setBackendData}/>} />

@@ -22,12 +22,18 @@ const Search = (props) => {
 
     return (
         <div>
-           
-          <div className='input-container'>
-    <input className='Search-Nome' type='text' placeholder='Procurar Nome...' onChange={e=>setSearchNome(e.target.value)}/>
-    <input className='Search-Email' type='text' placeholder='Procurar Email...' onChange={e=>setSearchEmail(e.target.value)}/>
-    </div>
-    <div className='container-list'>
+    <form class="d-flex" role="search">
+        <input onChange={e=>setSearchNome(e.target.value)} class="form-control me-2" type="search" placeholder="Procurar pelo nome" aria-label="Search"/>
+        <input onChange={e=>setSearchEmail(e.target.value)} class="form-control me-2" type="search" placeholder="Procurar pelo email" aria-label="Search"/>
+        
+      </form>
+      
+
+
+    <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {props.backendData.filter(data=>{
             if(data.nome!==undefined){
               if(searchEmail===''&&searchNome===''){
@@ -52,17 +58,16 @@ const Search = (props) => {
             }).reverse().map((data,index,array)=>{
             if(index<10){
               return(
-                <div key={data._id} className='list-container'> 
-                  <ul className='whole-list'>
-                    <li className='individual-list'>Nome: {data.nome}</li>
-                    <li className='individual-list'>CPF: {data.cpf}</li>
-                    <li className='individual-list'>Celular: {data.celular}</li>
-                    <li className='individual-list'>Email: {data.email}</li>
-                    <li className='individual-list'>Endereco: {data.endereco}</li>
-                    <li className='individual-list'>Nascimento: {data.nascimento}</li>
-                  
-                    <div className='button-container'>
-                    <Link to={{
+                <div>
+              
+             <div class="col">
+               <div class="card shadow-sm">
+     
+                 <div style={{padding:"20px",minWidth:"300px"}} class="card-body">
+                   <p  class="card-text">Nome:{data.nome}<br/>CPF:{data.cpf}<br/>Celular:{data.cpf}<br/>Email:{data.email}<br/>Endereco:{data.endereco}<br/>Nascimento{data.nascimento}<br/></p>
+                   <div class="d-flex justify-content-between align-items-center">
+                     <div class="btn-group">
+                     <Link to={{
                             pathname: `/search/${data._id}`,
                             state: {
                                 id: data._id,
@@ -73,15 +78,17 @@ const Search = (props) => {
                                 observacao:data.observacao,
                                 celular:data.celular,
                                 email:data.email,
-                            }}}>
-                             
-                            
-                              <li className='Editar-button'>Editar</li>  </Link>  
-                              <p className='deletar' id={data._id} onClick={deletar}>Deletar</p>  
-                              </div>
-                                     
-                   </ul>
-                </div>
+                            }}}>  <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></Link>
+                       <button id={data._id} onClick={deletar} type="button" class="btn btn-sm btn-outline-secondary">Deletar</button>
+                     </div>
+                     <small class="text-muted">9 mins</small>
+                   </div>
+                 </div>
+               </div>
+             </div>
+     </div>
+     
+              
               )
             }
             
@@ -90,8 +97,16 @@ const Search = (props) => {
          
           }
            </div>
-              </div>
-                );
+</div>
+</div>
+
+
+
+
+
+
+            
+           </div>);
              
       
    
