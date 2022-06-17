@@ -66,7 +66,8 @@ const Home = (props) => {
         console.log("testando aquiiii")
         Axios.post('https://tranquil-shelf-46464.herokuapp.com/users',{email:values.email,cpf:values.cpf,nome:values.nome,endereco:values.endereco,observacao:values.observacao,celular:values.celular,nascimento:values.nascimento})
         .then((value)=>console.log(`dado foi submitted`))
-        props.setBackendData(props.backendData.push({email:values.email,cpf:values.cpf,nome:values.nome,endereco:values.endereco,observacao:values.observacao,celular:values.celular,nascimento:values.nascimento}))
+        props.backendData.push({email:values.email,cpf:values.cpf,nome:values.nome,endereco:values.endereco,observacao:values.observacao,celular:values.celular,nascimento:values.nascimento})
+        props.setBackendData(props.backendData)
         navigate("/search")
       }}
       initialValues={{
