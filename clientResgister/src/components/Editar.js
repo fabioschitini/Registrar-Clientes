@@ -89,9 +89,9 @@ const Editar = (props) => {
 validationSchema={schema}
 onSubmit={values=>{
   console.log("testando aquiiii")
-  Axios.post('https://tranquil-shelf-46464.herokuapp.com/users',{email:values.email,cpf:values.cpf,nome:values.nome,endereco:values.endereco,observacao:values.observacao,celular:values.celular,nascimento:values.nascimento})
+  Axios.post('https://tranquil-shelf-46464.herokuapp.com/users/editar',{email:values.email,cpf:values.cpf,nome:values.nome,endereco:values.endereco,observacao:values.observacao,celular:values.celular,nascimento:values.nascimento})
   .then(()=>console.log(`dado foi submitted`))
-
+  navigate("/search")
 }}
 initialValues={{
   nome: nome,

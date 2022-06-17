@@ -4,25 +4,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button,Col,Form,Row,InputGroup,Container} from 'react-bootstrap';
 import { Formik } from 'formik';
  import * as yup from 'yup';
+ import { useNavigate } from "react-router-dom";
+
 
 const Home = (props) => {
+  const navigate = useNavigate();
 
-  //function onSubmits(e){
-
-  //  e.preventDefault()
-  //  console.log('yooooooooo')
-  //if(props.backendData.filter(data=>data.cpf===cpf)[0]!==undefined){
-    
-   // setErrorRepetido(false)
-    //console.log('fodassseeee 1111111')
-
- // }
- // else{
-//console.log('yoosssssdasfasfafas')
- //   Axios.post('https://tranquil-shelf-46464.herokuapp.com/users',{email,cpf,nome,endereco,observacao,celular,nascimento}).then(()=>console.log(`yepp`))
-  //  console.log(`dado foi submited`)
-  //}
-  //}
   
   const schema = yup.object().shape({
     nome: yup.string().required("Esse campo é obrigatorio"),
@@ -78,8 +65,9 @@ const Home = (props) => {
       onSubmit={values=>{
         console.log("testando aquiiii")
         Axios.post('https://tranquil-shelf-46464.herokuapp.com/users',{email:values.email,cpf:values.cpf,nome:values.nome,endereco:values.endereco,observacao:values.observacao,celular:values.celular,nascimento:values.nascimento})
-        .then(()=>console.log(`dado foi submitted`))
-
+        .then((value)=>console.log(`dado foi submitted`))
+        props.setBackendData(props.backendData.push({email:values.email,cpf:values.cpf,nome:values.nome,endereco:values.endereco,observacao:values.observacao,celular:values.celular,nascimento:values.nascimento}))
+        navigate("/search")
       }}
       initialValues={{
         nome: 'Mark',
