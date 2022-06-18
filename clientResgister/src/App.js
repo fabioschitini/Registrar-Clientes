@@ -31,8 +31,8 @@ fetch("https://tranquil-shelf-46464.herokuapp.com/users").then(response=>respons
         <Navs> </Navs>
         <Routes>
         <Route path='/Registrar-Clientes/' element={<Home backendData={backendData} setBackendData={setBackendData}/>} />
-        <Route exact path='/search' element={<Search backendData={backendData} setBackendData={setBackendData}/>} />
-        <Route path='/search/:id' element={<Editar backendData={backendData} setBackendData={setBackendData}/>} />
+        <Route exact path='/Registrar-Clientes/search' element={<Search backendData={backendData} setBackendData={setBackendData}/>} />
+        <Route path='/Registrar-Clientes/search/:id' element={<Editar backendData={backendData} setBackendData={setBackendData}/>} />
 
         </Routes>
       </Router>

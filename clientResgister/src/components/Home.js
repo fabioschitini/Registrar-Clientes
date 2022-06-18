@@ -68,7 +68,7 @@ const Home = (props) => {
         .then((value)=>console.log(`dado foi submitted`))
         props.backendData.push({email:values.email,cpf:values.cpf,nome:values.nome,endereco:values.endereco,observacao:values.observacao,celular:values.celular,nascimento:values.nascimento})
         props.setBackendData(props.backendData)
-        navigate("/search")
+        navigate("/Registrar-Clientes/search")
       }}
       initialValues={{
         nome: 'Mark',

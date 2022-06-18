@@ -68,7 +68,7 @@ const Search = (props) => {
                    <div class="d-flex justify-content-between align-items-center">
                      <div class="btn-group">
                      <Link to={{
-                            pathname: `/search/${data._id}`,
+                            pathname: `/Registrar-Clientes/search/${data._id}`,
                             state: {
                                 id: data._id,
                                 nome:data.nome,

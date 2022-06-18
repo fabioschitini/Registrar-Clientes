@@ -64,6 +64,7 @@ const Editar = (props) => {
 
   useEffect(()=>{
     if(props.backendData[0].nome){
+     // console.log("backend dataaaaaaaaaaaaaaaaaaaaaaaaa",)
       setInputData(props.backendData.filter(data=>data._id===id))
       setNome(props.backendData.filter(data=>data._id===id)[0].nome)
       setEmail(props.backendData.filter(data=>data._id===id)[0].email)
@@ -89,9 +90,16 @@ const Editar = (props) => {
 validationSchema={schema}
 onSubmit={values=>{
   console.log("testando aquiiii")
-  Axios.post('https://tranquil-shelf-46464.herokuapp.com/users/editar',{email:values.email,cpf:values.cpf,nome:values.nome,endereco:values.endereco,observacao:values.observacao,celular:values.celular,nascimento:values.nascimento})
+  Axios.post('https://tranquil-shelf-46464.herokuapp.com/users/editar',{email:values.email,cpf:values.cpf,nome:values.nome,endereco:values.endereco,observacao:values.observacao,celular:values.celular,nascimento:values.nascimento,id})
   .then(()=>console.log(`dado foi submitted`))
-  navigate("/search")
+  let yo=props.backendData.map(value=>{
+    if(value._id===id)
+   return value={email:values.email,cpf:values.cpf,nome:values.nome,endereco:values.endereco,observacao:values.observacao,celular:values.celular,nascimento:values.nascimento,_id:id}
+   else return value
+  })
+  console.log(yo,"yooooooooooooooooooooooooooooooooooooo")
+  props.setBackendData(yo) 
+  navigate("/Registrar-Clientes/search")
 }}
 initialValues={{
   nome: nome,
