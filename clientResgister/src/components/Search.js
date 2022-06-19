@@ -23,8 +23,8 @@ const Search = (props) => {
     return (
         <div>
     <form class="d-flex" role="search">
-        <input onChange={e=>setSearchNome(e.target.value)} class="form-control me-2" type="search" placeholder="Procurar pelo nome" aria-label="Search"/>
-        <input onChange={e=>setSearchEmail(e.target.value)} class="form-control me-2" type="search" placeholder="Procurar pelo email" aria-label="Search"/>
+        <input style={{marginTop:"10px"}} onChange={e=>setSearchNome(e.target.value)} class="form-control me-2" type="search" placeholder="Procurar pelo nome" aria-label="Search"/>
+        <input style={{marginTop:"10px"}}  onChange={e=>setSearchEmail(e.target.value)} class="form-control me-2" type="search" placeholder="Procurar pelo email" aria-label="Search"/>
         
       </form>
       
@@ -63,7 +63,7 @@ const Search = (props) => {
              <div class="col">
                <div class="card shadow-sm">
      
-                 <div style={{padding:"20px",minWidth:"300px"}} class="card-body">
+                 <div style={{padding:"20px"}} class="card-body">
                    <p  class="card-text">Nome:{data.nome}<br/>CPF:{data.cpf}<br/>Celular:{data.cpf}<br/>Email:{data.email}<br/>Endereco:{data.endereco}<br/>Nascimento{data.nascimento}<br/></p>
                    <div class="d-flex justify-content-between align-items-center">
                      <div class="btn-group">
